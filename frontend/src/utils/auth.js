@@ -9,7 +9,7 @@ export function checkResponse(res) {
 }
 
 export const register = async (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`https://kmv-mesto.nomoredomainsicu.ru/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
