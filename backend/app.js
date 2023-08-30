@@ -12,7 +12,19 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000, DATABASE = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
 
-app.use(cors());
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'https://kmv-mesto.nomoredomainsicu.ru/sign-in',
+    'http://kmv-mesto.nomoredomainsicu.ru/sign-in',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+app.use('*', cors(options));
 
 app.use(helmet());
 
