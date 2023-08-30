@@ -1,0 +1,25 @@
+.profile__edit-pic {
+    padding: 46px 0 0 0;
+    transition: .5s ease;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+    border: 2px solid #fff;
+    background-color: #000;
+    max-width: 150px;
+    background-image: url(../../../images/Plus.svg);
+    background-position: 50%;
+    background-size: 22px;
+}
+
+.profile__edit-pic:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1023px) {
+    .profile__edit-pic {
+        margin: 34px auto 0;
+        min-width: 282px;
+    }
+    
+}

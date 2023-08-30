@@ -1,0 +1,9 @@
+.element__caption {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 15px 31px 21px;
+    max-width: 282px;
+    max-height: 79px;
+}

@@ -1,0 +1,32 @@
+.profile__avatar-change {
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 50%;
+    padding: 0;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    border: none;
+  }
+  
+  .profile__avatar-change::before {
+    background-image: url(../../../images/VectorAvatar.svg);
+    background-color: rgba(0, 0, 0, .8);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 26px 26px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    z-index: 1;
+    opacity: 0;
+  }
+
+  .profile__avatar-change:hover::before {
+    opacity: 1;
+    transition: opacity .5s;
+    cursor: pointer;
+  }
