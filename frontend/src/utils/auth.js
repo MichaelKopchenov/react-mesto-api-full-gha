@@ -9,9 +9,10 @@ export function checkResponse(res) {
 }
 
 export const register = async (email, password) => {
-  return fetch(`https://kmv-mesto.nomoredomainsicu.ru/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ 
@@ -26,6 +27,7 @@ export const login = async (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ 
@@ -48,6 +50,7 @@ export const checkToken = async (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     }
