@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://kmv-mesto.nomoredomainsicu.ru/';
+export const BASE_URL = 'https://kmv-mesto.nomoredomainsicu.ru';
 
 export function checkResponse(res) {
   if (res.ok) {

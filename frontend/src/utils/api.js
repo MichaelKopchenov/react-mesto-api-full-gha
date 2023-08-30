@@ -105,7 +105,7 @@ unputLike(cardId, token) {
 }
 
 const api = new Api({
-    baseUrl: 'https://api.kmv-mesto.nomoredomainsicu.ru/',
+    baseUrl: 'https://api.kmv-mesto.nomoredomainsicu.ru',
   });
 
 export default api;
