@@ -27,6 +27,7 @@ function Header ({ userData, loggedIn }) {
     } else {
       setEmail('');
     }
+    // eslint-disable-next-line
   }, [location]);
 
   function wayBack() {

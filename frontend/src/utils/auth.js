@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.kmv-mesto.nomoredomainsicu.ru';
+export const BASE_URL = 'https://kmv-mesto.nomoredomainsicu.ru/';
 
 export function checkResponse(res) {
   if (res.ok) {
@@ -52,7 +52,7 @@ export const checkToken = async (token) => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${ localStorage.getItem('token') }`
+      'Authorization': `Bearer ${token}`
     }
   })
   .then(checkResponse)

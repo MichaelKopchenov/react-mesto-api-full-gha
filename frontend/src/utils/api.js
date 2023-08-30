@@ -34,7 +34,7 @@ setNewProfileData(dataOfUser, token) {
         headers: {
             'Content-Type': 'application/json',
             "Authorization" : `Bearer ${token}`
-        },
+          },
         body: JSON.stringify({
             name: dataOfUser.name,
             about: dataOfUser.about,
@@ -49,7 +49,7 @@ setNewCard(data, token) {
         headers: {
             'Content-Type': 'application/json',
             "Authorization" : `Bearer ${token}`
-        },
+          },
         body: JSON.stringify({
             name: data.name,
             link: data.link,
@@ -105,7 +105,7 @@ unputLike(cardId, token) {
 }
 
 const api = new Api({
-    baseUrl: 'https://api.kmv-mesto.nomoredomainsicu.ru',
+    baseUrl: 'https://api.kmv-mesto.nomoredomainsicu.ru/',
   });
 
 export default api;

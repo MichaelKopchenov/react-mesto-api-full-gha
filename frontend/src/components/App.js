@@ -41,7 +41,7 @@ const App = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([api.getInitialCards(), api.getInitialProfile()])
+      Promise.all([api.getInitialCards(token), api.getInitialProfile(token)])
         .then(([cards, dataOfUser]) => {
           setCards(cards);
           setCurrentUser(dataOfUser);
@@ -50,6 +50,7 @@ const App = () => {
           console.log(`Что-то пошло не так загрузке начальных даных ${ err }`)
         });
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
 
   useEffect(() => {
@@ -70,6 +71,7 @@ const App = () => {
 
   useEffect(() => {
     handleTokenCheck();
+    // eslint-disable-next-line
   }, []);
 
   function handleLogin(isLogin) {
@@ -116,11 +118,7 @@ const App = () => {
     if (token) {
       auth.checkToken(token)
         .then((res) => {
-          const userData = {
-            email: res.data.email,
-            password: res.data.password
-          };
-        setUserData(userData);
+        setUserData(res.email);
         setLoggedIn(true);
         navigate('/', {replace: true});
       })
@@ -129,9 +127,9 @@ const App = () => {
   };
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((item) => item._id === currentUser._id);
+    const isLiked = card.likes.some((item) => item === currentUser._id);
     if (!isLiked) {
-      api.putLike(card._id)
+      api.putLike(card._id, token)
         .then((newCard) => {
           const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
           setCards(newCards);
@@ -140,7 +138,7 @@ const App = () => {
           console.log(`Что-то пошло не так при нажатии на Лайк ${err}`);
         });
     } else {
-      api.unputLike(card._id)
+      api.unputLike(card._id, token)
         .then((newCard) => {
           const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
           setCards(newCards);
@@ -152,7 +150,7 @@ const App = () => {
   };
 
   function handleCardDelete(card) {
-    api.deleteMyCard(card._id)
+    api.deleteMyCard(card._id, token)
       .then(() => {
         const mapCards = [...cards.filter((item) => item._id !== card._id)];
         setCards(mapCards);
@@ -162,7 +160,7 @@ const App = () => {
 
   function handleUpdateUser(dataOfUser) {
     setIsLoading(true);
-    api.setNewProfileData(dataOfUser)
+    api.setNewProfileData(dataOfUser, token)
       .then((dataOfUser) => {
         setCurrentUser(dataOfUser);
         setIsEditProfilePopupOpen(false);
@@ -175,7 +173,7 @@ const App = () => {
 
   function handleUpdateAvatar(data) {
     setIsLoading(true);
-    api.setNewAvatar(data.avatar)
+    api.setNewAvatar(data.avatar, token)
       .then((data) => {
         setCurrentUser(data);
         setIsEditAvatarPopupOpen(false);
@@ -189,7 +187,7 @@ const App = () => {
 
   function handleAddPlaceSubmit(data) {
     setIsLoading(true);
-    api.setNewCard(data)
+    api.setNewCard(data, token)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         setIsAddPlacePopupOpen(false);

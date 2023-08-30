@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { createUser } = require('../controllers/users');
-const { urlValidator, emailRegex } = require('../utils/constants');
+const urlValidator = require('../utils/constants');
 
 router.post('/', celebrate({
   body: Joi
@@ -21,7 +21,7 @@ router.post('/', celebrate({
       email: Joi
         .string()
         .required()
-        .pattern(emailRegex),
+        .email(),
       password: Joi
         .string()
         .required(),
