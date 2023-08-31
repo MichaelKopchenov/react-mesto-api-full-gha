@@ -20,8 +20,13 @@ export const register = async (email, password) => {
       password 
     })
   })
-    .then(checkResponse)
-}
+  .then((res) => {
+    return checkResponse(res);
+  })
+  .then((data) => {
+    return data;
+  });
+};
 
 export const login = async (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
