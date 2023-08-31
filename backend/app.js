@@ -31,7 +31,6 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
-app.use(limiter);
 
 app.use(helmet());
 
@@ -45,6 +44,8 @@ app.use(requestLogger);
 app.use('/', require('./routes/index'));
 
 app.use(errorLogger);
+
+app.use(limiter);
 
 app.use(errors());
 

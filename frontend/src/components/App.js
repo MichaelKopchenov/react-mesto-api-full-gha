@@ -117,9 +117,13 @@ const App = () => {
     if (token) {
       auth.checkToken(token)
         .then((res) => {
-          setUserData(res.email);
-          setLoggedIn(true);
-          navigate('/', {replace: true});
+          const userData = {
+            email: res.data.email,
+            password: res.data.password
+          };
+        setUserData(userData);
+        setLoggedIn(true);
+        navigate('/', {replace: true});
       })
       .catch((err) => { console.log(`Что-то пошло не так при проверке токена ${ err }`) });
     }

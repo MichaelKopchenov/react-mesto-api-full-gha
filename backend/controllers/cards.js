@@ -1,4 +1,4 @@
-const { HTTP_STATUS_OK } = require('http2').constants;
+const { HTTP_STATUS_OK, HTTP_STATUS_CREATED } = require('http2').constants;
 const {
   ValidationError,
   CastError,
@@ -21,7 +21,7 @@ module.exports.createCard = (req, res, next) => {
         .orFail()
         .populate('owner')
         .then((data) => res
-          .status(HTTP_STATUS_OK)
+          .status(HTTP_STATUS_CREATED)
           .send(data))
         .catch((err) => {
           if (err instanceof DocumentNotFoundError) {

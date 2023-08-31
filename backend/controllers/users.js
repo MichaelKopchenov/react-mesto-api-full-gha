@@ -1,4 +1,4 @@
-const { HTTP_STATUS_OK } = require('http2').constants;
+const { HTTP_STATUS_OK, HTTP_STATUS_CREATED } = require('http2').constants;
 const {
   ValidationError,
   CastError,
@@ -7,6 +7,8 @@ const {
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+
+const { SOME_SECRET_KEY, NODE_ENV } = process.env;
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
@@ -28,7 +30,7 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     })
       .then((user) => res
-        .status(HTTP_STATUS_OK)
+        .status(HTTP_STATUS_CREATED)
         .send({
           name: user.name,
           about: user.about,
@@ -53,7 +55,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'some-secret-key',
+        NODE_ENV === 'production' ? SOME_SECRET_KEY : 'dev-secret',
         { expiresIn: '7d' },
       );
       res.send({ token });
