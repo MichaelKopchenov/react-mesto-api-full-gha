@@ -12,7 +12,20 @@ const InternalServerError = require('./errors/IternalServerError');
 const { PORT = 3000, DATABASE = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
 
-app.use(cors());
+const options = {
+  origin: [
+    'http://localhost:3000',
+    'http://kmv-mesto.nomoredomainsicu.ru',
+    'https://kmv-mesto.nomoredomainsicu.ru',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use('*', cors(options));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
