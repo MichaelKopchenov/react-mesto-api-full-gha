@@ -126,7 +126,7 @@ const App = () => {
   };
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((item) => item === currentUser._id);
+    const isLiked = card.likes.some((item) => item._id === currentUser._id);
     if (!isLiked) {
       api.putLike(card._id)
         .then((newCard) => {
@@ -151,7 +151,8 @@ const App = () => {
   function handleCardDelete(card) {
     api.deleteMyCard(card._id)
       .then(() => {
-        setCards((cards) => cards.filter((item) => item._id !== card._id));
+        const mapCards = [...cards.filter((item) => item._id !== card._id)];
+        setCards(mapCards);
       })
       .catch((e) => console.log(e));
   };
