@@ -42,7 +42,7 @@ const App = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([api.getInitialCards(token), api.getInitialProfile(token)])
+      Promise.all([api.getInitialCards(), api.getInitialProfile()])
         .then(([cards, dataOfUser]) => {
           setCards(cards);
           setCurrentUser(dataOfUser);
@@ -126,9 +126,9 @@ const App = () => {
   };
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((item) => item === currentUser._id);
+    const isLiked = card.likes.some((item) => item._id === currentUser._id);
     if (!isLiked) {
-      api.putLike(card._id, token)
+      api.putLike(card._id)
         .then((newCard) => {
           const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
           setCards(newCards);
@@ -137,7 +137,7 @@ const App = () => {
           console.log(`Что-то пошло не так при нажатии на Лайк ${err}`);
         });
     } else {
-      api.unputLike(card._id, token)
+      api.unputLike(card._id)
         .then((newCard) => {
           const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
           setCards(newCards);
@@ -149,7 +149,7 @@ const App = () => {
   };
 
   function handleCardDelete(card) {
-    api.deleteMyCard(card._id, token)
+    api.deleteMyCard(card._id)
       .then(() => {
         const mapCards = [...cards.filter((item) => item._id !== card._id)];
         setCards(mapCards);
@@ -159,7 +159,7 @@ const App = () => {
 
   function handleUpdateUser(dataOfUser) {
     setIsLoading(true);
-    api.setNewProfileData(dataOfUser, token)
+    api.setNewProfileData(dataOfUser)
       .then((dataOfUser) => {
         setCurrentUser(dataOfUser);
         setIsEditProfilePopupOpen(false);
@@ -172,7 +172,7 @@ const App = () => {
 
   function handleUpdateAvatar(data) {
     setIsLoading(true);
-    api.setNewAvatar(data.avatar, token)
+    api.setNewAvatar(data.avatar)
       .then((data) => {
         setCurrentUser(data);
         setIsEditAvatarPopupOpen(false);
@@ -186,7 +186,7 @@ const App = () => {
 
   function handleAddPlaceSubmit(data) {
     setIsLoading(true);
-    api.setNewCard(data, token)
+    api.setNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         setIsAddPlacePopupOpen(false);
