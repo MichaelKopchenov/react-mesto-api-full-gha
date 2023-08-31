@@ -151,8 +151,7 @@ const App = () => {
   function handleCardDelete(card) {
     api.deleteMyCard(card._id)
       .then(() => {
-        const mapCards = [...cards.filter((item) => item._id !== card._id)];
-        setCards(mapCards);
+        setCards((cards) => cards.filter((item) => item._id !== card._id));
       })
       .catch((e) => console.log(e));
   };
