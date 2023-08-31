@@ -16,9 +16,21 @@ module.exports.createCard = (req, res, next) => {
     link,
     owner: req.user._id,
   })
-    .then((card) => res
-      .status(HTTP_STATUS_OK)
-      .send(card))
+    .then((card) => {
+      Card.findById(card._id)
+        .orFail()
+        .populate('owner')
+        .then((data) => res
+          .status(HTTP_STATUS_OK)
+          .send(data))
+        .catch((err) => {
+          if (err instanceof DocumentNotFoundError) {
+            next(new NotFoundError('Карточка не найдена.'));
+          } else {
+            next(err);
+          }
+        });
+    })
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new BadRequestError(err.message));
@@ -30,6 +42,7 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
+    .populate(['owner', 'likes'])
     .then((cards) => res
       .status(HTTP_STATUS_OK)
       .send(cards))
@@ -60,6 +73,7 @@ module.exports.deleteCard = (req, res, next) => {
 module.exports.putLike = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .orFail()
+    .populate(['owner', 'likes'])
     .then((card) => {
       res
         .status(HTTP_STATUS_OK)
@@ -83,6 +97,7 @@ module.exports.unputLike = (req, res, next) => {
     { new: true },
   )
     .orFail()
+    .populate(['owner', 'likes'])
     .then((card) => {
       res
         .status(HTTP_STATUS_OK)

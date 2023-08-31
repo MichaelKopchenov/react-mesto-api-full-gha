@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
@@ -50,7 +51,6 @@ const App = () => {
           console.log(`Что-то пошло не так загрузке начальных даных ${ err }`)
         });
     }
-    // eslint-disable-next-line
   }, [loggedIn]);
 
   useEffect(() => {
@@ -71,7 +71,6 @@ const App = () => {
 
   useEffect(() => {
     handleTokenCheck();
-    // eslint-disable-next-line
   }, []);
 
   function handleLogin(isLogin) {
@@ -118,9 +117,9 @@ const App = () => {
     if (token) {
       auth.checkToken(token)
         .then((res) => {
-        setUserData(res.email);
-        setLoggedIn(true);
-        navigate('/', {replace: true});
+          setUserData(res.email);
+          setLoggedIn(true);
+          navigate('/', {replace: true});
       })
       .catch((err) => { console.log(`Что-то пошло не так при проверке токена ${ err }`) });
     }

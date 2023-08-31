@@ -1,7 +1,7 @@
 class Api {
     constructor(options) {
         this._url = options.baseUrl;
-        }
+    }
 
 _getResponseData(res) {
     if (res.ok) {
@@ -14,7 +14,7 @@ getInitialCards(token) {
     return fetch(`${this._url}/cards`, {
         headers: {
             "Authorization" : `Bearer ${token}`
-        }
+          }
     })
     .then(this._getResponseData);
 }
@@ -23,7 +23,7 @@ getInitialProfile(token) {
     return fetch(`${this._url}/users/me`, {
         headers: {
             "Authorization" : `Bearer ${token}`
-        }
+          }
     })
     .then(this._getResponseData);
 }

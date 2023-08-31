@@ -58,7 +58,9 @@ module.exports.login = (req, res, next) => {
       );
       res.send({ token });
     })
-    .catch(next);
+    .catch((err) => {
+      next(err);
+    });
 };
 
 module.exports.getUsers = (req, res, next) => {

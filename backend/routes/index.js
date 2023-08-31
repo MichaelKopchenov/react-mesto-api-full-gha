@@ -8,7 +8,7 @@ const NotFoundError = require('../errors/NotFoundError');
 
 router.get('/crash-test', () => {
   setTimeout(() => {
-    throw new Error('Внимание! Сервер скоро упадет!');
+    throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
 
