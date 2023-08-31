@@ -10,56 +10,57 @@ _getResponseData(res) {
     return Promise.reject(`Ошибка: ${res.status}`);
 }
 
+_request(url, options) {
+    return fetch(`${this._url}${url}`, options)
+      .then(this._getResponseData)
+  }
+
 getInitialCards(token) {
-    return fetch(`${this._url}/cards`, {
-        headers: {
-            "Authorization" : `Bearer ${token}`
-          }
+    return this._request('/cards', {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
     })
-    .then(this._getResponseData);
-}
+  }
 
 getInitialProfile(token) {
-    return fetch(`${this._url}/users/me`, {
-        headers: {
-            "Authorization" : `Bearer ${token}`
-          }
+    return this._request('/users/me', {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
     })
-    .then(this._getResponseData);
-}
+  }
 
 setNewProfileData(dataOfUser, token) {
-    return fetch(`${this._url}/users/me`, {
+    return this._request('/users/me', {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json',
-            "Authorization" : `Bearer ${token}`
-          },
+          'Content-Type': 'application/json',
+          "Authorization" : `Bearer ${token}`
+        },
         body: JSON.stringify({
             name: dataOfUser.name,
             about: dataOfUser.about,
         })
     })
-    .then(this._getResponseData);
 }
 
 setNewCard(data, token) {
-    return fetch(`${this._url}/cards`, {
+    return this._request('/cards', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            "Authorization" : `Bearer ${token}`
-          },
+          'Content-Type': 'application/json',
+          "Authorization" : `Bearer ${token}`
+        },
         body: JSON.stringify({
             name: data.name,
             link: data.link,
         })
     })
-    .then(this._getResponseData);
 }
 
 setNewAvatar(data, token) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return this._request('/users/me/avatar', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -69,39 +70,34 @@ setNewAvatar(data, token) {
         avatar: data,
       })
     })
-    .then(this._getResponseData);
 }
 
 deleteMyCard(cardId, token) {
-    return fetch(`${this._url}/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-    .then(this._getResponseData);
-}
+    return this._request(`/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      })
+    }
 
 putLike(cardId, token) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+    return this._request(`/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
         "Authorization" : `Bearer ${token}`
       }
     })
-    .then(this._getResponseData);
-}
+  }
 
 unputLike(cardId, token) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: 'DELETE',
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-    .then(this._getResponseData);
-}
-
+    return this._request(`/cards/${cardId}/likes`, {
+        method: 'DELETE',
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      })
+    }
 }
 
 const api = new Api({

@@ -192,7 +192,7 @@ const App = () => {
         setIsAddPlacePopupOpen(false);
       })
       .catch((err) => {
-        console.log(`Что-то пошло не так при удалении карточки ${err}`);
+        console.log(`Что-то пошло не так при добавлении карточки ${err}`);
       })
       .finally(() => setIsLoading(false));
   };
