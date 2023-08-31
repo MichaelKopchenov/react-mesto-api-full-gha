@@ -118,8 +118,7 @@ const App = () => {
       auth.checkToken(token)
         .then((res) => {
           const userData = {
-            email: res.data.email,
-            password: res.data.password
+            email: res.email,
           };
         setUserData(userData);
         setLoggedIn(true);
