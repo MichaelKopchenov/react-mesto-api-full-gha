@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 84.252.138.23
+IP 84.252.138.23
 
 Frontend https://kmv-mesto.nomoredomainsicu.ru
 
