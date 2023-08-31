@@ -32,7 +32,7 @@ module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => res
       .status(HTTP_STATUS_OK)
-      .send(cards.reverse()))
+      .send(cards))
     .catch(next);
 };
 
